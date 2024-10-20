@@ -1,30 +1,18 @@
 import { series } from './data.js';
 var seriesTable = document.getElementById("series-table-body");
-var detailsContainer = document.getElementById("details-container");
 function mostrarSeries(series) {
     var seriesTbody = document.createElement("tbody");
-    var totalTemporadas = 0; 
+    var totalTemporadas = 0;
     series.forEach(function (serie) {
         var trElement = document.createElement("tr");
-        trElement.innerHTML = "\n            <td>".concat(serie.id, "</td>\n            <td><span class=\"link-like\" style=\"cursor: pointer;\">").concat(serie.nombre, "</span></td> <!-- Nombre con estilo de enlace -->\n            <td>").concat(serie.canal, "</td>\n            <td>").concat(serie.temporadas, "</td>\n        ");
-        
-        trElement.onclick = function () { return mostrarDetalles(serie); };
+        trElement.innerHTML = "\n            <td>".concat(serie.id, "</td>\n            <td><span class=\"link-like\" style=\"cursor: pointer;\">").concat(serie.nombre, "</span></td>\n            <td>").concat(serie.canal, "</td>\n            <td>").concat(serie.temporadas, "</td>\n        ");
         seriesTbody.appendChild(trElement);
         totalTemporadas += serie.temporadas;
     });
     var promedioTemporadas = totalTemporadas / series.length;
-   
     var trPromedio = document.createElement("tr");
     trPromedio.innerHTML = "        \n        <td colspan=\"3\" style=\"text-align:left;\">Promedio de Temporadas: ".concat(promedioTemporadas, "</td>");
     seriesTbody.appendChild(trPromedio);
-    
     seriesTable.appendChild(seriesTbody);
 }
-
-function mostrarDetalles(serie) {
-    detailsContainer.innerHTML = "\n        <div class=\"card\" style=\"width: 18rem;\">\n           <img src=\"".concat(serie.imagen, "\" class=\"card-img-top\" alt=\"").concat(serie.nombre, "\">\n            <div class=\"card-body\">\n                <h5 class=\"card-title\">").concat(serie.nombre, "</h5>\n                <p class=\"card-text\">").concat(serie.sinopsis, "</p>\n                <p><a href=\"").concat(serie.pagina, "\" target=\"_blank\">").concat(serie.pagina, "</a></p> <!-- Enlace como texto -->\n            </div>\n        </div>\n    ");
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    mostrarSeries(series);
-});
+mostrarSeries(series);
